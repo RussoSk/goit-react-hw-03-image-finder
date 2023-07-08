@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
 export class Modal extends Component {
@@ -25,17 +26,50 @@ export class Modal extends Component {
       this.props.onCloseModal();
     }
   };
+// заборона закриття модалки при кліку на зображення
+  handleImageClick = (event) => {
+    event.stopPropagation();
+  };
 
   render() {
     const { children } = this.props;
 
     return (
       <div className={css.Overlay} onClick={this.props.onCloseModal}>
-        <div className={css.Modal}>{children}</div>
+        <div className={css.Modal} onClick={this.handleImageClick}>{children}</div>
       </div>
     );
   }
 }
+
+Modal.propTypes = {
+  showModal: PropTypes.bool.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import React from 'react';
