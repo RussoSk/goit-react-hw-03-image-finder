@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import {Searchbar} from './Searchbar/Searchbar';
 import {ImageGallery} from './ImageGallery/ImageGallery';
-import {Loader} from './Loader/Loader';
+import {CustomLoader} from './Loader/Loader';
 import {Button} from './Button/Button';
 import {Modal} from './Modal/Modal';
 import { ToastContainer, toast } from 'react-toastify';
@@ -30,6 +30,7 @@ export class App extends Component {
 
     try {
       this.setState({ loading: true });
+      // await new Promise((resolve) => setTimeout(resolve, 5000));
       const response = await axios.get(url);
       const data = response.data;
 
@@ -75,7 +76,7 @@ export class App extends Component {
       <div>
         <ToastContainer autoClose={1000}/>
         <Searchbar onSubmit={this.handleSubmit} />
-        {loading && <Loader />}
+        {loading && <CustomLoader />}
         {error && <p>{error}</p>}
         <ImageGallery images={images} onOpenModal={this.handleOpenModal} />
         {images.length > 0 && <Button onLoadMore={this.handleLoadMore} />}
