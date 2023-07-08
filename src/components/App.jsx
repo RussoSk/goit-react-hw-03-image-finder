@@ -4,16 +4,19 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchImages, perPage } from '../Api/api';
 
+
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { CustomLoader } from './Loader/Loader';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
+import {BackgroundImage} from './BackgroundImage/BackgroundImage';
 
 export class App extends Component {
   state = {
     images: [],
     loading: false,
+    load: true,
     error: null,
     query: '',
     page: 1,
@@ -35,7 +38,8 @@ export class App extends Component {
           } else {
             this.setState((prevState) => ({
               images: [...prevState.images, ...response.hits],
-              loading: false,
+              loading: false, 
+              load: false,
             }));
           }
         })
@@ -64,7 +68,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, loading, error, showModal, modalImageUrl } = this.state;
+    const {load, images, loading, error, showModal, modalImageUrl } = this.state;
     const isLastPage = images.length > 0 && images.length % perPage !== 0; // Перевіряємо, чи це остання сторінка зображень
     
     return (
@@ -76,16 +80,15 @@ export class App extends Component {
         <ImageGallery images={images} onOpenModal={this.handleOpenModal} />
         {!isLastPage && images.length > 0 && <Button onLoadMore={this.handleLoadMore}/>}
         {showModal && (
-          <Modal onCloseModal={this.handleCloseModal} >
+          <Modal showModal={showModal} onCloseModal={this.handleCloseModal} >
             <img src={modalImageUrl} alt={images.tags} />
           </Modal>
         )}
+        {load && <BackgroundImage />}
       </div>
     );
   }
 }
-
-
 
 
 

@@ -11,4 +11,4 @@ export const CustomLoader = () => {
   );
 };
 
-export default CustomLoader;
+
