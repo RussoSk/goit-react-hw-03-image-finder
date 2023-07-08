@@ -74,9 +74,9 @@ export class App extends Component {
         {loading && <CustomLoader />}
         {error && <p>{error}</p>}
         <ImageGallery images={images} onOpenModal={this.handleOpenModal} />
-        {!isLastPage && images.length > 0 && <Button onLoadMore={this.handleLoadMore} />}
+        {!isLastPage && images.length > 0 && <Button onLoadMore={this.handleLoadMore}/>}
         {showModal && (
-          <Modal onCloseModal={this.handleCloseModal} isLastPage={isLastPage}>
+          <Modal onCloseModal={this.handleCloseModal} >
             <img src={modalImageUrl} alt={images.tags} />
           </Modal>
         )}
